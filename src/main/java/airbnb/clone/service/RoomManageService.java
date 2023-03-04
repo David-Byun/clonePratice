@@ -2,6 +2,7 @@ package airbnb.clone.service;
 
 import airbnb.clone.mapper.RoomMapper;
 import airbnb.clone.model.Room;
+import airbnb.clone.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,9 @@ public class RoomManageService {
         this.roomMapper = roomMapper;
     }
 
-    public void registerRoom(Room room) {
+    public void registerRoom(User user, Room room) {
         roomMapper.register(room);
+        System.out.println(user);
     }
 
     public void deleteRoom(int id) {
