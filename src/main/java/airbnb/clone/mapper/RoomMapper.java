@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RoomMapper {
     void register(Room room);
-    void deleteById(int roomId);
+    void deleteById(Integer roomId);
     void update(Room room);
-    Room findById(int roomId);
+    Room findById(Integer roomId);
 }

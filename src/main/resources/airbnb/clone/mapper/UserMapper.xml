@@ -9,4 +9,7 @@
     <select id="findAll" resultType="User">
         select * from user
     </select>
+    <select id="findById" resultType="User">
+        select * from user where user_id = #{userId}
+    </select>
 </mapper>

@@ -11,10 +11,10 @@ public interface UserMapper {
 
     void save(User user);
 
-    User findById(int id);
+    User findById(Integer id);
 
     List<User> findAll();
 
-    void deleteById(int id);
+    void deleteById(Integer id);
 
 }

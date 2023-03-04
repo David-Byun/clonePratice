@@ -25,11 +25,11 @@ public class UserService {
         userMapper.save(user);
     }
 
-    public User findUserInfo(int userId) {
+    public User findUserInfo(Integer userId) {
         return userMapper.findById(userId);
     }
 
-    public void delete(int userId) {
+    public void delete(Integer userId) {
         userMapper.deleteById(userId);
     }
 

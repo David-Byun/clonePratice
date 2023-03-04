@@ -2,7 +2,6 @@ package airbnb.clone.controller;
 
 import airbnb.clone.exception.ErrorCode;
 import airbnb.clone.exception.ErrorResponse;
-import airbnb.clone.model.Room;
 import airbnb.clone.model.User;
 import airbnb.clone.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +13,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
+@ResponseBody
 @RequestMapping("/api")
 public class UserController {
 
@@ -25,13 +25,12 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<User> signUp(@RequestBody User user) {
+    public void signUp(User user) {
         manageService.signUp(user);
-        return ResponseEntity.ok().body(user);
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<User> findUserInfo(int userId) {
+    public ResponseEntity<User> findUserInfo(@PathVariable("userId") Integer userId) {
         User foundUser = manageService.findUserInfo(userId);
         if (foundUser == null) {
             ErrorResponse.of(ErrorCode.NO_USER);

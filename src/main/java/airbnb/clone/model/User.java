@@ -1,7 +1,9 @@
 package airbnb.clone.model;
 
 import lombok.*;
+import org.springframework.cglib.core.Local;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,13 +12,12 @@ import java.time.LocalDateTime;
 @ToString
 public class User {
 
-    private int userId;
+    private Integer userId;
 
     private String name;
     private String email;
     private String birthDay;
     private String phoneNumber;
-
     private LocalDateTime createAt;
 
     public User(String name, String email, String birthDay, String phoneNumber) {
