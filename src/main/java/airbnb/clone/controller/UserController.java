@@ -2,23 +2,25 @@ package airbnb.clone.controller;
 
 import airbnb.clone.exception.ErrorCode;
 import airbnb.clone.exception.ErrorResponse;
+import airbnb.clone.model.Room;
 import airbnb.clone.model.User;
-import airbnb.clone.service.UserManageService;
-import lombok.RequiredArgsConstructor;
+import airbnb.clone.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Slf4j
 @RequestMapping("/api")
 public class UserController {
 
-    private final UserManageService manageService;
+    private final UserService manageService;
 
     @Autowired
-    public UserController(UserManageService manageService) {
+    public UserController(UserService manageService) {
         this.manageService = manageService;
     }
 
@@ -37,12 +39,10 @@ public class UserController {
         return ResponseEntity.ok().body(foundUser);
     }
 
-    //{
-    //    id : 1,
-    //    userName : "david",
-    //    email:"aa",
-    //    birthDay : "11",
-    //    phoneNumber : "11",
-    //    rooms : "11"
-    //}
+    @GetMapping("")
+    public ResponseEntity<List<User>> findUsers() {
+        List<User> allUser = manageService.findAllUser();
+        return ResponseEntity.ok().body(allUser);
+    }
+
 }

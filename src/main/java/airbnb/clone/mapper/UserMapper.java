@@ -11,12 +11,9 @@ public interface UserMapper {
 
     void save(User user);
 
-
     User findById(int id);
 
-
     List<User> findAll();
-
 
     void deleteById(int id);
 
