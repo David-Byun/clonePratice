@@ -3,6 +3,7 @@ package airbnb.clone.mapper;
 
 import airbnb.clone.model.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,10 +13,12 @@ public interface UserMapper {
 
     void save(User user);
 
-    Optional<User> findById(Integer id);
+    Optional<User> findById(int id);
 
     List<User> findAll();
 
-    void deleteById(Integer id);
+    void deleteById(int id);
+
+    void update(@Param("userId") int userId, @Param("user") User user);
 
 }

@@ -1,9 +1,6 @@
 package airbnb.clone.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
@@ -18,6 +15,11 @@ public class User {
 
     @NotBlank
     private String name;
+
+    public String getName() {
+        return name;
+    }
+
     @Email
     @NotBlank
     private String email;
@@ -33,6 +35,8 @@ public class User {
     @Pattern(regexp = "^01(?:0|1|[6-9])-(?:\\\\d{3}|\\\\d{4})-\\\\d{4}$")
     private String phoneNumber;
     private LocalDateTime createAt;
+
+    private LocalDateTime updatedAt;
 
     public User(String name, String email, String birthDay, String phoneNumber) {
         this.createAt = LocalDateTime.now();

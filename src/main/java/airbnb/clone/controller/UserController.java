@@ -48,4 +48,11 @@ public class UserController {
     public void deleteUser(@PathVariable Integer userId) {
         manageService.delete(userId);
     }
+
+    @PostMapping("/user/{userId}/update")
+    public ResponseEntity<String> updateUser(@PathVariable int userId, @RequestBody User user) {
+        manageService.update(userId, user);
+        return ResponseEntity.ok().body("정상적으로 변경되었습니다");
+    }
+
 }

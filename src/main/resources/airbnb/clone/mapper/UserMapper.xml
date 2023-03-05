@@ -15,4 +15,7 @@
     <delete id="deleteById">
         delete from user where user_id= #{userId}
     </delete>
+    <update id="update">
+        update user set name = #{user.name}, phone_number = #{user.phoneNumber}, email = #{user.email}, updated_at= NOW() where user_id = #{userId}
+    </update>
 </mapper>
