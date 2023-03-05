@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,7 +14,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Room {
     private int roomId;
+
+    @NotBlank
     private String roomName;
+
+    @NotBlank
     private String location;
     private int ownerId;
 
@@ -25,7 +30,6 @@ public class Room {
         this.roomName = room.roomName;
         this.location = room.location;
         this.ownerId = ownerId;
-        this.updatedAt = null;
         this.createdAt = LocalDateTime.now();
     }
 }

@@ -6,5 +6,16 @@
         insert into room(room_id, room_name, location, owner_id, room_photo, created_at, updated_at)
         values (#{room.roomId}, #{room.roomName}, #{room.location}, #{ownerId}, #{room.roomPhoto}, NOW(), null)
     </insert>
-
+    <select id="findById" resultType="Room">
+        select * from room where room_id = #{roomId}
+    </select>
+    <select id="findAllRooms" resultType="Room">
+        select * from room
+    </select>
+    <delete id="deleteById">
+        delete from room where room_id = #{roomId}
+    </delete>
+    <update id="update">
+        update room set room_name = #{room.roomName}, location = #{room.location}, updated_at = NOW() where room_id = #{roomId}
+    </update>
 </mapper>

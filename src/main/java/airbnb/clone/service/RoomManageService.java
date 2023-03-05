@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -31,14 +32,21 @@ public class RoomManageService {
 
     public void updateRoom(Integer id, Room room) {
         Optional<Room> findRoom = roomMapper.findById(id);
-        if(findRoom.isPresent()){
+        if(findRoom.isPresent()) {
             findRoom.get().setRoomName(room.getRoomName());
             findRoom.get().setLocation(room.getLocation());
             findRoom.get().setUpdatedAt(LocalDateTime.now());
+            roomMapper.update(id,findRoom.get());
+        } else {
+            throw new CustomException(ErrorCode.NO_ROOM);
         }
     }
 
     public Optional<Room> findRoomById(int id) {
         return Optional.of(roomMapper.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NO_ROOM)));
+    }
+
+    public List<Room> findAllRooms() {
+        return roomMapper.findAllRooms();
     }
 }

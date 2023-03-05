@@ -1,5 +1,7 @@
 package airbnb.clone.controller;
 
+import airbnb.clone.exception.CustomException;
+import airbnb.clone.exception.ErrorCode;
 import airbnb.clone.model.Room;
 import airbnb.clone.property.FileUploadDownloadService;
 import airbnb.clone.property.FileUploadResponse;
@@ -16,19 +18,44 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @RestController
 @RequestMapping("/api")
 public class RoomController {
-    private RoomManageService roomManageService;
-    private FileUploadDownloadService fileService;
+    private final RoomManageService roomManageService;
+    private final FileUploadDownloadService fileService;
 
     @Autowired
     public RoomController(RoomManageService roomManageService, FileUploadDownloadService fileService) {
         this.roomManageService = roomManageService;
         this.fileService = fileService;
+    }
+
+    @GetMapping("/room")
+    public List<Room> findAllRooms() {
+        return roomManageService.findAllRooms();
+    }
+
+    @GetMapping("/room/{roomId}")
+    public Optional<Room> findRoom(@PathVariable int roomId) {
+        return Optional.ofNullable(roomManageService.findRoomById(roomId).orElseThrow(() -> new CustomException(ErrorCode.NO_ROOM)));
+    }
+
+    @PostMapping("/room/{roomId}/delete")
+    public ResponseEntity<String> deleteRoom(@PathVariable int roomId) {
+        roomManageService.deleteRoom(roomId);
+        return ResponseEntity.ok().body(roomId + "번 방이 삭제되었습니다");
+    }
+
+    @PostMapping("/room/{roomId}/update")
+    public ResponseEntity<Room> updateRoom(@PathVariable("roomId") int roomId, @RequestBody Room room)
+    {
+        roomManageService.updateRoom(roomId, room);
+        return ResponseEntity.ok().body(room);
     }
 
     @PostMapping("/room/user/{userId}")
@@ -37,7 +64,7 @@ public class RoomController {
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/room/downloadFile/").path(fileName).toUriString();
         room.setRoomPhoto(fileDownloadUri);
         room.setOwnerId(userId);
-        log.info("룸 확인 = {}", room);
+        log.info("생성된 룸 = {}", room);
         roomManageService.registerRoom(room, userId);
         return new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
     }
