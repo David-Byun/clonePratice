@@ -30,12 +30,12 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<User> findUserInfo(@PathVariable("userId") Integer userId) {
+    public User findUserInfo(@PathVariable("userId") Integer userId) {
         User foundUser = manageService.findUserInfo(userId);
         if (foundUser == null) {
             ErrorResponse.of(ErrorCode.NO_USER);
         }
-        return ResponseEntity.ok().body(foundUser);
+        return foundUser;
     }
 
     @GetMapping("")
@@ -44,4 +44,8 @@ public class UserController {
         return ResponseEntity.ok().body(allUser);
     }
 
+    @PostMapping("/user/{userId}/delete")
+    public void deleteUser(@PathVariable Integer userId) {
+        manageService.delete(userId);
+    }
 }

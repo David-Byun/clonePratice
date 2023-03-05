@@ -12,4 +12,7 @@
     <select id="findById" resultType="User">
         select * from user where user_id = #{userId}
     </select>
+    <delete id="deleteById">
+        delete from user where user_id= #{userId}
+    </delete>
 </mapper>

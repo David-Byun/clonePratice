@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="airbnb.clone.mapper.RoomMapper">
+    <insert id="register" useGeneratedKeys="true" keyProperty="room.roomId">
+        insert into room(room_id, room_name, location, owner_id, created_at, updated_at)
+        values (#{room.roomId}, #{room.roomName}, #{room.location}, #{ownerId}, NOW(), null)
+    </insert>
+</mapper>

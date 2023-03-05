@@ -1,8 +1,6 @@
 package airbnb.clone.service;
 
-import airbnb.clone.mapper.RoomMapper;
 import airbnb.clone.mapper.UserMapper;
-import airbnb.clone.model.Room;
 import airbnb.clone.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

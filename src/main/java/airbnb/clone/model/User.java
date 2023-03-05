@@ -1,9 +1,10 @@
 package airbnb.clone.model;
 
-import lombok.*;
-import org.springframework.cglib.core.Local;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 
 @Getter

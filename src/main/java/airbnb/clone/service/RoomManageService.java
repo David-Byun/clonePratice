@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Service
 public class RoomManageService {
@@ -16,8 +18,8 @@ public class RoomManageService {
         this.roomMapper = roomMapper;
     }
 
-    public void registerRoom(Room room) {
-        roomMapper.register(room);
+    public void registerRoom(Room room, int userId) {
+        roomMapper.register(room, userId);
     }
 
     public void deleteRoom(Integer id) {
@@ -26,9 +28,9 @@ public class RoomManageService {
 
     public void updateRoom(Integer id, Room room) {
         Room findRoom = roomMapper.findById(id);
-        findRoom.setRoomId(room.getRoomId());
-        findRoom.setOwner(room.getOwner());
+        findRoom.setRoomName(room.getRoomName());
         findRoom.setLocation(room.getLocation());
+        findRoom.setUpdatedAt(LocalDateTime.now());
     }
 
 }
