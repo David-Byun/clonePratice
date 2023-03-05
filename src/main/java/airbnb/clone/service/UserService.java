@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -23,7 +24,7 @@ public class UserService {
         userMapper.save(user);
     }
 
-    public User findUserInfo(Integer userId) {
+    public Optional<User> findUserInfo(Integer userId) {
         return userMapper.findById(userId);
     }
 

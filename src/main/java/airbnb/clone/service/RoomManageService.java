@@ -1,5 +1,7 @@
 package airbnb.clone.service;
 
+import airbnb.clone.exception.CustomException;
+import airbnb.clone.exception.ErrorCode;
 import airbnb.clone.mapper.RoomMapper;
 import airbnb.clone.model.Room;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -27,10 +30,15 @@ public class RoomManageService {
     }
 
     public void updateRoom(Integer id, Room room) {
-        Room findRoom = roomMapper.findById(id);
-        findRoom.setRoomName(room.getRoomName());
-        findRoom.setLocation(room.getLocation());
-        findRoom.setUpdatedAt(LocalDateTime.now());
+        Optional<Room> findRoom = roomMapper.findById(id);
+        if(findRoom.isPresent()){
+            findRoom.get().setRoomName(room.getRoomName());
+            findRoom.get().setLocation(room.getLocation());
+            findRoom.get().setUpdatedAt(LocalDateTime.now());
+        }
     }
 
+    public Optional<Room> findRoomById(int id) {
+        return Optional.of(roomMapper.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NO_ROOM)));
+    }
 }

@@ -1,20 +1,24 @@
 package airbnb.clone.controller;
 
+import airbnb.clone.exception.CustomException;
 import airbnb.clone.exception.ErrorCode;
-import airbnb.clone.exception.ErrorResponse;
 import airbnb.clone.model.User;
 import airbnb.clone.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Slf4j
 @ResponseBody
 @RequestMapping("/api")
+@Validated
 public class UserController {
 
     private final UserService manageService;
@@ -25,17 +29,13 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public void signUp(User user) {
+    public void signUp(@Valid User user) {
         manageService.signUp(user);
     }
 
     @GetMapping("/user/{userId}")
-    public User findUserInfo(@PathVariable("userId") Integer userId) {
-        User foundUser = manageService.findUserInfo(userId);
-        if (foundUser == null) {
-            ErrorResponse.of(ErrorCode.NO_USER);
-        }
-        return foundUser;
+    public Optional<User> findUserInfo(@PathVariable("userId") Integer userId) {
+       return Optional.ofNullable(manageService.findUserInfo(userId).orElseThrow(() -> new CustomException(ErrorCode.NO_USER)));
     }
 
     @GetMapping("")

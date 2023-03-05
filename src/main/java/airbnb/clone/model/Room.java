@@ -16,6 +16,8 @@ public class Room {
     private String roomName;
     private String location;
     private int ownerId;
+
+    private String roomPhoto;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

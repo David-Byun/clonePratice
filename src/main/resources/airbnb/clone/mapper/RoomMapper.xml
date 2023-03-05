@@ -3,7 +3,8 @@
 
 <mapper namespace="airbnb.clone.mapper.RoomMapper">
     <insert id="register" useGeneratedKeys="true" keyProperty="room.roomId">
-        insert into room(room_id, room_name, location, owner_id, created_at, updated_at)
-        values (#{room.roomId}, #{room.roomName}, #{room.location}, #{ownerId}, NOW(), null)
+        insert into room(room_id, room_name, location, owner_id, room_photo, created_at, updated_at)
+        values (#{room.roomId}, #{room.roomName}, #{room.location}, #{ownerId}, #{room.roomPhoto}, NOW(), null)
     </insert>
+
 </mapper>
