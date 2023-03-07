@@ -1,9 +1,6 @@
 package airbnb.clone.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -11,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
+@Builder
 public class Room {
     private int roomId;
 
@@ -25,6 +22,19 @@ public class Room {
     private String roomPhoto;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public Room() {
+    }
+
+    public Room(int roomId, String roomName, String location, int ownerId, String roomPhoto, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.location = location;
+        this.ownerId = ownerId;
+        this.roomPhoto = roomPhoto;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public Room(Room room, int ownerId) {
         this.roomName = room.roomName;
