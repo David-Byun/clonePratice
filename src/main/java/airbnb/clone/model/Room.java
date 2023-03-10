@@ -37,6 +37,7 @@ public class Room {
     }
 
     public Room(Room room, int ownerId) {
+        this.roomId = room.roomId;
         this.roomName = room.roomName;
         this.location = room.location;
         this.ownerId = ownerId;

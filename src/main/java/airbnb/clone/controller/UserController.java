@@ -6,7 +6,9 @@ import airbnb.clone.model.User;
 import airbnb.clone.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +30,11 @@ public class UserController {
         this.manageService = manageService;
     }
 
+
     @PostMapping("/user")
-    public void signUp(@Valid User user) {
+    public ResponseEntity<HttpStatus> signUp(@Valid @RequestBody User user, BindingResult result) {
         manageService.signUp(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/user/{userId}")
@@ -38,7 +42,7 @@ public class UserController {
        return Optional.ofNullable(manageService.findUserInfo(userId).orElseThrow(() -> new CustomException(ErrorCode.NO_USER)));
     }
 
-    @GetMapping("")
+    @GetMapping("/user/all")
     public ResponseEntity<List<User>> findUsers() {
         List<User> allUser = manageService.findAllUser();
         return ResponseEntity.ok().body(allUser);

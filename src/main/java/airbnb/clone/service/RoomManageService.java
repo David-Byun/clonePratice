@@ -31,16 +31,19 @@ public class RoomManageService {
     }
 
     public void updateRoom(Integer id, Room room) {
-        Optional<Room> findRoom = roomMapper.findById(id);
-        if(findRoom.isPresent()) {
-            findRoom.get().setRoomName(room.getRoomName());
-            findRoom.get().setLocation(room.getLocation());
-            findRoom.get().setUpdatedAt(LocalDateTime.now());
-            roomMapper.update(id,findRoom.get());
-        } else {
-            throw new CustomException(ErrorCode.NO_ROOM);
+        List<Room> allRooms = roomMapper.findAllRooms();
+        for (Room findRoom : allRooms) {
+            if (id == findRoom.getRoomId()) {
+                    findRoom.setRoomName(room.getRoomName());
+                    findRoom.setLocation(room.getLocation());
+                    findRoom.setUpdatedAt(LocalDateTime.now());
+                    roomMapper.update(id,findRoom);
+                } else {
+                    throw new CustomException(ErrorCode.NO_ROOM);
+                }
+            }
         }
-    }
+
 
     public Optional<Room> findRoomById(int id) {
         return Optional.of(roomMapper.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NO_ROOM)));

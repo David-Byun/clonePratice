@@ -6,20 +6,16 @@ import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
 @Setter
-@NoArgsConstructor
 @ToString
 public class User {
+
 
     private Integer userId;
 
     @NotBlank
     private String name;
-
-    public String getName() {
-        return name;
-    }
-
     @Email
     @NotBlank
     private String email;
@@ -32,11 +28,17 @@ public class User {
 
     //휴대폰 번호 검증 정규식 입력
     @NotBlank
-    @Pattern(regexp = "^01(?:0|1|[6-9])-(?:\\\\d{3}|\\\\d{4})-\\\\d{4}$")
+    @Pattern(regexp = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$")
     private String phoneNumber;
     private LocalDateTime createAt;
-
     private LocalDateTime updatedAt;
+
+    public String getName() {
+        return name;
+    }
+
+    public User() {
+    }
 
     public User(String name, String email, String birthDay, String phoneNumber) {
         this.createAt = LocalDateTime.now();
@@ -44,5 +46,15 @@ public class User {
         this.email = email;
         this.birthDay = birthDay;
         this.phoneNumber = phoneNumber;
+    }
+
+    public User(Integer userId, String name, String email, String birthDay, String phoneNumber, LocalDateTime createAt, LocalDateTime updatedAt) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.birthDay = birthDay;
+        this.phoneNumber = phoneNumber;
+        this.createAt = createAt;
+        this.updatedAt = updatedAt;
     }
 }
